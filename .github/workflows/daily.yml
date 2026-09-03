@@ -1,0 +1,24 @@
+name: Daily Ganesha Notification
+
+on:
+  schedule:
+    # 毎日日本時間の朝7:00 (UTC 22:00) に実行
+    - cron: '0 22 * * *'
+  workflow_dispatch: # GitHubの画面から手動テスト実行できるようにするボタン
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run send.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python send.py
