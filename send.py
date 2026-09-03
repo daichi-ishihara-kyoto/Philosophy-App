@@ -7,7 +7,7 @@ def send_discord_message():
     webhook_url = os.environ.get("DISCORD_WEBHOOK_URL")
     
     # ▼ あなたの GitHub Pages の URL に書き換えてください（最後のスラッシュ / を忘れずに）
-    app_url = "https://daichi-ishihara-kyoto.github.io/Task-Everyday/"
+    app_url = "https://daichi-ishihara-kyoto.github.io/Philosophy-App/"
 
     if not webhook_url:
         print("Webhook URLが設定されていません。")
