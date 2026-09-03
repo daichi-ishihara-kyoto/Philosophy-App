@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ガネーシャの課題</title>
     
-    <!-- PWA用（ホーム画面追加時のアイコンやテーマカラー） -->
+    <!-- PWA用 -->
     <meta name="theme-color" content="#f59e0b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -69,18 +69,15 @@
     </script>
 
     <style>
-        /* スクロールを防止してアプリ感を出す */
         body {
             overflow: hidden;
-            touch-action: pan-y; /* 意図しないズームやスクロールを防止 */
+            touch-action: pan-y;
         }
-        
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.5);
         }
-
         .push-button {
             transition: all 0.1s ease;
             box-shadow: 0 8px 0 #b45309, 0 15px 20px rgba(0,0,0,0.2);
@@ -89,8 +86,6 @@
             transform: translateY(8px);
             box-shadow: 0 0px 0 #b45309, 0 5px 10px rgba(0,0,0,0.2);
         }
-
-        /* シャッフル中のテキストぼかし効果 */
         .shuffling {
             filter: blur(1px);
             opacity: 0.7;
@@ -100,12 +95,10 @@
 
 <body class="bg-gradient-to-br from-yellow-200 via-orange-300 to-amber-500 h-screen w-full flex flex-col items-center justify-between p-6 font-body text-ganesha-dark">
 
-    <!-- 背景の装飾（後光のようなイメージ） -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div class="absolute top-[-10%] left-[-10%] w-[120%] h-[120%] bg-[radial-gradient(circle,rgba(255,255,255,0.4)_0%,transparent_60%)]"></div>
     </div>
 
-    <!-- ヘッダー -->
     <header class="w-full text-center mt-8 safe-top">
         <div class="inline-block animate-float">
             <i class="fa-solid fa-om text-4xl text-white opacity-80 mb-2"></i>
@@ -116,75 +109,30 @@
         <p class="text-white/90 text-sm mt-2 font-medium">夢をかなえるゾウ</p>
     </header>
 
-    <!-- 課題表示カードエリア -->
     <main class="w-full max-w-md flex-grow flex items-center justify-center my-8 relative z-10">
-        
-        <!-- カード本体 -->
         <div id="task-card" class="glass-card w-full rounded-3xl p-8 shadow-2xl relative flex flex-col items-center justify-center min-h-[320px] text-center transform transition-transform duration-500">
-            
-            <!-- 初期状態のアイコン -->
             <div id="elephant-icon" class="text-6xl text-ganesha-orange mb-4 opacity-50 transition-opacity duration-300">
                 🐘
             </div>
-
-            <!-- 課題タイトル -->
             <h2 id="task-title" class="text-2xl md:text-3xl font-title font-bold leading-tight mb-6 text-gray-800">
                 ここをタップして<br>課題を引くぞう
             </h2>
-
-            <!-- 課題の詳細（初期は非表示） -->
             <div id="task-detail-container" class="hidden w-full">
                 <div class="w-12 h-1 bg-ganesha-orange mx-auto mb-4 rounded-full opacity-50"></div>
-                <p id="task-detail" class="text-base text-gray-700 leading-relaxed font-medium">
-                    <!-- 詳細文がここに入ります -->
-                </p>
+                <p id="task-detail" class="text-base text-gray-700 leading-relaxed font-medium"></p>
             </div>
-            
         </div>
-        
     </main>
 
-    <!-- アクションボタンエリア -->
     <footer class="w-full max-w-md mb-12 flex justify-center safe-bottom">
         <button id="draw-button" class="push-button w-[80%] bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-title font-bold text-xl py-5 rounded-full flex items-center justify-center gap-3 relative overflow-hidden group">
-            <!-- ボタン内のキラキラエフェクト -->
             <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-            
             <i class="fa-solid fa-wand-magic-sparkles"></i>
             <span id="button-text">課題を引く</span>
         </button>
     </footer>
 
     <script>
-        // 課題データ（要件の6つを定義）
-        const tasks = [
-            {
-                "task": "靴をみがく",
-                "detail": "自分が一番お世話になっている『靴』を磨くことで、感謝の気持ちと足元を整える。"
-            },
-            {
-                "task": "トイレを掃除する",
-                "detail": "誰もが嫌がる汚い場所を率先して綺麗にすることで、謙虚さと心を磨く。"
-            },
-            {
-                "task": "コンビニで募金する",
-                "detail": "自分のお金に対する執着を手放し、他人のために使う感覚を身につける。"
-            },
-            {
-                "task": "日の出を見る",
-                "detail": "誰にも邪魔されない自由な時間を大切に使うことが、本物の夢への近道だと知る。"
-            },
-            {
-                "task": "やりたくないことを全部書き出し、やりたいことに転換する",
-                "detail": "目の前のモヤモヤをすっきり晴らし、前向きな気持ちを高める。"
-            },
-            {
-                "task": "身近な人に感謝を伝える",
-                "detail": "当たり前だと思っている関係を見直し、素直に感謝を表現する。"
-            }
-        ];
-
-        // DOM要素の取得
         const drawButton = document.getElementById('draw-button');
         const buttonText = document.getElementById('button-text');
         const taskTitle = document.getElementById('task-title');
@@ -194,69 +142,74 @@
         const taskCard = document.getElementById('task-card');
         const buttonIcon = drawButton.querySelector('i');
 
+        let tasks = [];
         let isAnimating = false;
 
-        // ボタンクリックイベント
+        // ページ読み込み時に tasks.json を取得する
+        window.onload = async () => {
+            try {
+                // 同じ階層にある tasks.json を読み込む
+                const response = await fetch('./tasks.json');
+                tasks = await response.json();
+            } catch (error) {
+                console.error("データの読み込みに失敗しました:", error);
+                taskTitle.innerHTML = "データの読み込みに<br>失敗したぞう...";
+                taskDetail.textContent = "電波の良いところでリロードしてみてね。";
+                taskDetailContainer.classList.remove('hidden');
+            }
+        };
+
         drawButton.addEventListener('click', () => {
-            if (isAnimating) return; // アニメーション中は連打防止
+            if (isAnimating) return;
+            if (tasks.length === 0) {
+                alert("課題データが読み込めていません。リロードしてください。");
+                return;
+            }
             startGacha();
         });
 
-        // 課題を引く処理（ガチャアニメーション）
         function startGacha() {
             isAnimating = true;
             
-            // ボタンの見た目を変更
             buttonText.textContent = "お告げを受信中...";
             buttonIcon.className = "fa-solid fa-spinner fa-spin";
             drawButton.classList.add('opacity-80', 'scale-95');
 
-            // カードの初期化
             taskDetailContainer.classList.add('hidden');
             taskTitle.classList.add('shuffling');
             elephantIcon.classList.add('animate-shake');
 
-            // シャッフル演出の設定
-            const shuffleDuration = 1500; // シャッフルする時間（ミリ秒）
-            const shuffleInterval = 80;   // 文字が切り替わる間隔（ミリ秒）
+            const shuffleDuration = 1500;
+            const shuffleInterval = 80;
             
             let shuffleTimer = setInterval(() => {
-                // シャッフル中はランダムな課題のタイトルをパラパラ表示
                 const randomTask = tasks[Math.floor(Math.random() * tasks.length)];
                 taskTitle.textContent = randomTask.task;
             }, shuffleInterval);
 
-            // 一定時間後に結果を確定させる
             setTimeout(() => {
                 clearInterval(shuffleTimer);
                 showResult();
             }, shuffleDuration);
         }
 
-        // 結果の表示
         function showResult() {
-            // 最終的な課題をランダムに1つ決定
             const finalTask = tasks[Math.floor(Math.random() * tasks.length)];
 
-            // エフェクトを解除
             taskTitle.classList.remove('shuffling');
             elephantIcon.classList.remove('animate-shake');
             
-            // 少し縮んでからポンっと大きくなるアニメーションを付与
             taskCard.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 taskCard.style.transform = 'scale(1)';
             }, 100);
 
-            // データのセット
             taskTitle.textContent = finalTask.task;
             taskDetail.textContent = finalTask.detail;
 
-            // 詳細をフェードイン
             taskDetailContainer.classList.remove('hidden');
             taskDetailContainer.classList.add('animate-pop-in');
 
-            // ボタンの状態を「もう一度引く」に変更
             setTimeout(() => {
                 buttonText.textContent = "もう一度引く";
                 buttonIcon.className = "fa-solid fa-rotate-right";
@@ -264,9 +217,8 @@
                 isAnimating = false;
             }, 300);
             
-            // PWA向け：バイブレーション（対応デバイスのみ）
             if (navigator.vibrate) {
-                navigator.vibrate([50, 50, 100]); // ダ・ダ・ダンという振動
+                navigator.vibrate([50, 50, 100]);
             }
         }
     </script>
