@@ -149,7 +149,9 @@
         window.onload = async () => {
             try {
                 // 同じ階層にある tasks.json を読み込む
-                const response = await fetch('./tasks.json');
+                // 変更後（?v= と現在時刻をくっつけることで、常に最新を強制取得する）
+　　　　　　　　　const response = await fetch('./tasks.json?v=' + new Date().getTime());
+
                 tasks = await response.json();
             } catch (error) {
                 console.error("データの読み込みに失敗しました:", error);
